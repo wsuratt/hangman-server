@@ -15,7 +15,13 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 var cors=require('cors');
-app.use(cors({origin:true,credentials: true}));
+const corsOptions = {
+  origin: ["https://hangman-inky.vercel.app"],
+  preflightContinue:false,
+  credentials: true
+}
+app.use(cors(corsOptions));
+
 
 let usersList = getUsers();
 
