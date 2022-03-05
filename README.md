@@ -1,1 +1,1 @@
-# hangman-server
+# hangman server

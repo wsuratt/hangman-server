@@ -11,7 +11,7 @@ import { PublicKey } from "@solana/web3.js";
 import { start } from 'repl';
 
 const app = express();
-const PORT = 4800;
+const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 var cors=require('cors');
