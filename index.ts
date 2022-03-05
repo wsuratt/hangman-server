@@ -92,10 +92,6 @@ app.post('/api/guess', (req, res) => {
       res.send("*****");
       return;
   }
-  if (!user.hasWagered){
-    res.send("*****");
-    return;
-  }
   async function guessAsync(userID: string, guess: string) {
     let value = await updateGuess(userID, guess);
     res.send({ word : String(value) });
