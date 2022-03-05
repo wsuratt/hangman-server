@@ -22,6 +22,7 @@ const corsOptions = {
   preflightContinue: true,
 }
 app.use(cors());
+app.options('*', cors());
 
 let usersList = getUsers();
 
