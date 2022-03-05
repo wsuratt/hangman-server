@@ -80,8 +80,6 @@ export async function updateGuess(userID: string, guess: string): Promise<string
   if (user.numGuesses > 0 && !user.hasWon && user.hasWagered)
   {
     let currTime = Date.now() / 1000;
-    console.log(currTime);
-    console.log(user.timestamp);
     if ((currTime - user.timestamp) > 15)
     {
       let str = String(user.targetWord);
