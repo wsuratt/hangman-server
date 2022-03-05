@@ -15,7 +15,7 @@
   "engines": { "node": "16.14.0" },
   "scripts": {
     "start": "node dist/index.js",
-    "postinstall": "tsc && mv -i -v app dist/ && rm -v -rf src",
+    "postinstall": "tsc && mv -i -v etc dist/ && rm -v -rf src",
     "watch-node": "nodemon dist/index.js",
     "watch-ts": "tsc -w"
   }
