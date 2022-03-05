@@ -16,13 +16,12 @@ app.use(express.json());
 
 var cors=require('cors');
 const corsOptions = {
-  credentials: true,
   origin: 'https://hangman-inky.vercel.app',
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-  preflightContinue: true,
+  preflightContinue: false,
+  credentials: true
 }
-app.use(cors());
-app.options('*', cors());
+app.use(cors(corsOptions));
+
 
 let usersList = getUsers();
 
