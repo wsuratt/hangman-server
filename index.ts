@@ -16,7 +16,7 @@ app.use(express.json());
 
 var cors=require('cors');
 const corsOptions = {
-  origin: 'https://hangman.solwager.io/',
+  origin: 'https://hangman.solwager.io',
   preflightContinue: false,
   credentials: true
 }
