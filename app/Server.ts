@@ -113,8 +113,10 @@ export async function updateGuess(userID: string, guess: string): Promise<string
         await endGame(new PublicKey(userID), false);
       }
       user.timestamp = Date.now() / 1000;
+      console.log("IN\n")
       fs.writeFileSync('./app/etc/users.json', JSON.stringify(userArray));
     }
   }
+  console.log("OUT\n")
   return(user.word);
 }
