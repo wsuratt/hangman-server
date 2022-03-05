@@ -21,8 +21,7 @@ const corsOptions = {
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
   preflightContinue: true,
 }
-app.use(cors(corsOptions));
-
+app.use(cors());
 
 let usersList = getUsers();
 
