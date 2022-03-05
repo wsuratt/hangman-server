@@ -14,7 +14,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "start": "node fileName.js",
+    "start": "node index.js",
     "start:dev": "nodemon index.ts"
   }
 }
