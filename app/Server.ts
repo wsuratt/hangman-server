@@ -77,6 +77,9 @@ function setCharAt(str: string, index: number, chr: string) {
 
 export async function updateGuess(userID: string, guess: string): Promise<string>{
   let user = userArray.find((c: { ID: any; }) => String(c.ID) === userID);
+  console.log('Guesses: ' + user.numGuesses);
+  console.log('has Won: ' + user.hasWon);
+  console.log('has Wagered: ' + user.hasWagered);
   if (user.numGuesses > 0 && !user.hasWon && user.hasWagered)
   {
     let currTime = Date.now() / 1000;
