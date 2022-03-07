@@ -58,6 +58,7 @@ export function setWagered(userID: string) {
   user.hasWon = false;
   user.targetWord = getRandomWord();
   user.word = "*****";
+  user.timestamp = 0;
   user.numGuesses = 10;
   fs.writeFileSync('./app/etc/users.json', JSON.stringify(userArray));
 }
