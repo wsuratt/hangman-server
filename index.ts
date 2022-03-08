@@ -6,7 +6,7 @@ import {
   addUser,
   updateGuess,
 } from "./app/Server";
-import { verifyTransaction } from './app/Transactions';
+import { verifyTransaction, endGame } from './app/Transactions';
 import { PublicKey } from "@solana/web3.js";
 import { start } from 'repl';
 
@@ -97,6 +97,11 @@ app.post('/api/guess', (req, res) => {
     res.send({ word : String(value) });
   }
   guessAsync(user.ID, guess);
+});
+
+app.post('/api/end', (req, res) => {
+  const userID = new PublicKey(req.body.ID);
+  endGame(userID, false);
 });
 
 app.listen(PORT, () => {
