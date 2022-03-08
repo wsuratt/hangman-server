@@ -22,7 +22,7 @@ export class User{
       this.hasWon = false;
       this.targetWord = getRandomWord();
       this.word = "*****";
-      this.numGuesses = 10;
+      this.numGuesses = 8;
       this.timestamp = 0;
   }
   ID: PublicKey;
@@ -59,7 +59,7 @@ export function setWagered(userID: string) {
   user.targetWord = getRandomWord();
   user.word = "*****";
   user.timestamp = 0;
-  user.numGuesses = 10;
+  user.numGuesses = 8;
   fs.writeFileSync('./app/etc/users.json', JSON.stringify(userArray));
 }
 

@@ -3,6 +3,7 @@ import { web3 } from '@project-serum/anchor';
 import { clusterApiUrl, Connection, LAMPORTS_PER_SOL, PublicKey, Keypair } from "@solana/web3.js";
 import { setWagered } from "./Server";
 const connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
+// const connection = new Connection(clusterApiUrl("mainnet-beta"), "confirmed");
 const fs = require('fs');
 const idl = require('./etc/hangman_program.json');
 
