@@ -6,6 +6,7 @@ const connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
 // const connection = new Connection(clusterApiUrl("mainnet-beta"), "confirmed");
 const fs = require('fs');
 const idl = require('./etc/hangman_program.json');
+const { pool } = require('../config');
 
 const FEE_WALLET = "8WnqfBUM4L13fBUudvjstHBEmUcxTPPX7DGkg3iyMmc8";
 const POOL_PDA = "CoDTqzRy4P4jQqz3FadbWJJHdLupsQH7PrrvLNgodNFX";
@@ -15,8 +16,7 @@ export const SOLWAGER_PROGRAM = new PublicKey(
 
 const serverWallet = loadWalletKey('./app/etc/my_keypair.json');
 
-let tsxArrayJSON = fs.readFileSync('./app/etc/transactions.json');
-let tsxArray = JSON.parse(tsxArrayJSON);
+let tsxArray: any[] = [];
 
 function loadWalletKey(keypairPath: string): Keypair {
   if (!keypairPath || keypairPath == '') {
@@ -29,7 +29,20 @@ function loadWalletKey(keypairPath: string): Keypair {
 }
 
 export async function verifyTransaction(userID: string, tSig: string): Promise<boolean>{
-  if (tsxArray.includes(tSig)) return false;
+  const text = 'SELECT COUNT(1) FROM transactions WHERE sig = $1';
+  const values = [tSig];
+  const exists =  await new Promise<number>(resolve => {
+    pool.query(text, values, (error: any, results: { rows: any; }) => {
+      if (error) {
+        throw error
+      }
+      let countJSON = results.rows[0];
+      let count = countJSON.count;
+      resolve(count);
+    })
+  });
+
+  if (exists > 0) return false;
 
   const transactionData = await connection.getParsedTransaction(tSig, "confirmed");
   
@@ -45,16 +58,15 @@ export async function verifyTransaction(userID: string, tSig: string): Promise<b
   const toPool = transactionData.transaction.message.accountKeys[2].pubkey.toString();
   if (toPool != POOL_PDA) return false;
 
-  tsxArray.push(tSig);
-  fs.writeFile('./app/etc/transactions.json', JSON.stringify(tsxArray), (err: any) => {
-    if (err)
-        console.log(err);
-    else{
-        console.log("Transaction ", String(tSig), "successfully added");
+  const text2 = 'INSERT INTO transactions (sig) VALUES($1)';
+  const values2 = [tSig];
+  await pool.query(text2, values2, (error: any, results: { rows: any; }) => {
+    if (error) {
+      throw error
     }
-  });
+  })
 
-  setWagered(userID);
+  await setWagered(userID);
 
   return true;
 }
