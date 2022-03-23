@@ -25,7 +25,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.get('/', (req, res) => {
-  res.send('SOLWAGER');
+  res.send('Hangman by SOLWAGER');
 });
 
 // app.get('/api/word', (req, res) => {
