@@ -9,7 +9,7 @@ const idl = require('./etc/hangman_program.json');
 const { pool } = require('../config');
 
 const FEE_WALLET = "8WnqfBUM4L13fBUudvjstHBEmUcxTPPX7DGkg3iyMmc8";
-const POOL_PDA = "CoDTqzRy4P4jQqz3FadbWJJHdLupsQH7PrrvLNgodNFX";
+const POOL_PDA = "FJGhH3QbScekoYhW3pFy8BWNACD6bKhuJcvURUtEFUrY";
 export const SOLWAGER_PROGRAM = new PublicKey(
   "FMUgWojverbaoVHq1tkLf9xxFe1eusyN4AjJQ1GBBx4A"
 );
