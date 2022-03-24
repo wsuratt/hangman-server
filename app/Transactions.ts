@@ -8,6 +8,8 @@ const fs = require('fs');
 const idl = require('./etc/hangman_program.json');
 const { pool } = require('../config');
 
+const FEE_TOTAL = 0.0011; //remove 0s
+
 const FEE_WALLET = "8WnqfBUM4L13fBUudvjstHBEmUcxTPPX7DGkg3iyMmc8";
 const POOL_PDA = "FJGhH3QbScekoYhW3pFy8BWNACD6bKhuJcvURUtEFUrY";
 export const SOLWAGER_PROGRAM = new PublicKey(
@@ -45,17 +47,19 @@ export async function verifyTransaction(userID: string, tSig: string): Promise<b
   if (exists > 0) return false;
 
   const transactionData = await connection.getParsedTransaction(tSig, "confirmed");
-  
+
   if (!transactionData) return false;
   if (!transactionData.meta) return false;
   
   const amount = (transactionData.meta.preBalances[0] - transactionData.meta.postBalances[0]) / LAMPORTS_PER_SOL;
-  if (amount < 0.11) return false;
+  if (amount < FEE_TOTAL) return false;
   
   const toFee = transactionData.transaction.message.accountKeys[1].pubkey.toString();
+  console.log(toFee);
   if (toFee != FEE_WALLET) return false;
 
   const toPool = transactionData.transaction.message.accountKeys[2].pubkey.toString();
+  console.log(toPool);
   if (toPool != POOL_PDA) return false;
 
   const text2 = 'INSERT INTO transactions (sig) VALUES($1)';

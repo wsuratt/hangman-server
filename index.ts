@@ -5,6 +5,7 @@ import {
   getUsers,
   getUserWord,
   getUserGuesses,
+  getUserWager,
   addUser,
   updateGuess,
 } from "./app/Server";
@@ -53,11 +54,20 @@ app.get('/api/users/word/:id', (req, res) => {
 
 app.get('/api/users/guesses/:id', (req, res) => {
   let numGuesses = '';
-  async function getWord() {
+  async function getGuesses() {
     numGuesses = await getUserGuesses(req.params.id);
     res.send(numGuesses);
   }
-  getWord();
+  getGuesses();
+});
+
+app.get('/api/users/wager/:id', (req, res) => {
+  let wagered = false;
+  async function getWager() {
+    wagered = await getUserWager(req.params.id);
+    res.send(wagered);
+  }
+  getWager();
 });
 
 app.put('/api/users', (req, res) => {

@@ -76,6 +76,22 @@ export async function getUserGuesses(ID: string): Promise<string>{
   });
 }
 
+export async function getUserWager(ID: string): Promise<boolean>{
+  const text = 'SELECT has_wagered, timestamp FROM users WHERE id = $1';
+  const values = [ID];
+  return new Promise<boolean>(resolve => {
+    pool.query(text, values, (error: any, results: { rows: any; }) => {
+      if (error) {
+        console.log(error);
+      }
+      let userJSON = results.rows[0];
+      let timestamp = userJSON.timestamp;
+      let hasWagered = userJSON.has_wagered;
+      resolve(timestamp == 0 && hasWagered);
+    })
+  });
+}
+
 export async function addUser(ID: PublicKey): Promise<void>{
   const text = 'SELECT COUNT(1) FROM users WHERE id = $1';
   const values = [ID];
