@@ -98,7 +98,7 @@ export async function addUser(ID: PublicKey): Promise<void>{
   const exists =  await new Promise<number>(resolve => {
     pool.query(text, values, (error: any, results: { rows: any; }) => {
       if (error) {
-        throw error
+        console.log(error)
       }
       let countJSON = results.rows[0];
       let count = countJSON.count;
@@ -197,7 +197,12 @@ export async function updateGuess(userID: string, guess: string): Promise<string
               user.has_won = true;
               user.timestamp = 0;
               user.has_wagered = false;
-              endGame(new PublicKey(userID), true);
+              try {
+                endGame(new PublicKey(userID), true);
+              }
+              catch {
+                console.log("failed end game")
+              }
             }
           }
           else
@@ -209,7 +214,12 @@ export async function updateGuess(userID: string, guess: string): Promise<string
             user.word = user.target_word;
             user.timestamp = 0;
             user.has_wagered = false;
-            endGame(new PublicKey(userID), false);
+            try {
+              endGame(new PublicKey(userID), false);
+            }
+            catch {
+              console.log("failed end game")
+            }
           }
           if (user.has_wagered)
             user.timestamp = Date.now() / 1000;

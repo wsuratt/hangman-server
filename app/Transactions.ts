@@ -36,7 +36,7 @@ export async function verifyTransaction(userID: string, tSig: string): Promise<b
   const exists =  await new Promise<number>(resolve => {
     pool.query(text, values, (error: any, results: { rows: any; }) => {
       if (error) {
-        throw error
+        console.log(error)
       }
       let countJSON = results.rows[0];
       let count = countJSON.count;
@@ -65,7 +65,7 @@ export async function verifyTransaction(userID: string, tSig: string): Promise<b
   const values2 = [tSig];
   await pool.query(text2, values2, (error: any, results: { rows: any; }) => {
     if (error) {
-      throw error
+      console.log(error);
     }
   })
 

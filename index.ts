@@ -106,7 +106,12 @@ app.post('/api/guess', (req, res) => {
 
 app.post('/api/end', (req, res) => {
   const userID = new PublicKey(req.body.ID);
-  endGame(userID, false);
+  try {
+    endGame(userID, false);
+  }
+  catch {
+    console.log("failed end game")
+  }
 });
 
 app.listen(PORT, () => {
