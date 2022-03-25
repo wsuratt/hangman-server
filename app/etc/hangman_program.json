@@ -1,5 +1,5 @@
 {
-  "version": "0.0.0",
+  "version": "0.1.0",
   "name": "hangman_program",
   "instructions": [
     {
@@ -12,7 +12,7 @@
         },
         {
           "name": "owner",
-          "isMut": false,
+          "isMut": true,
           "isSigner": true
         },
         {
@@ -21,12 +21,7 @@
           "isSigner": false
         }
       ],
-      "args": [
-        {
-          "name": "poolBump",
-          "type": "u8"
-        }
-      ]
+      "args": []
     },
     {
       "name": "wager",
@@ -93,10 +88,6 @@
         "kind": "struct",
         "fields": [
           {
-            "name": "bump",
-            "type": "u8"
-          },
-          {
             "name": "win",
             "type": "i64"
           },
@@ -108,19 +99,23 @@
       }
     }
   ],
-  "errors": [
+  "types": [
     {
-      "code": 300,
-      "name": "TopicTooLong",
-      "msg": "The provided topic should be 50 characters long maximum."
-    },
-    {
-      "code": 301,
-      "name": "ContentTooLong",
-      "msg": "The provided content should be 280 characters long maximum."
+      "name": "ErrorCode",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "TopicTooLong"
+          },
+          {
+            "name": "ContentTooLong"
+          }
+        ]
+      }
     }
   ],
   "metadata": {
-    "address": "FMUgWojverbaoVHq1tkLf9xxFe1eusyN4AjJQ1GBBx4A"
+    "address": "8VxWJzmYtVrC755tFjQGMLhAN3hgPfCNPReEtN3wBzYz"
   }
 }
