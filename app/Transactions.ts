@@ -54,13 +54,12 @@ export async function verifyTransaction(userID: string, tSig: string): Promise<b
   const amount = (transactionData.meta.preBalances[0] - transactionData.meta.postBalances[0]) / LAMPORTS_PER_SOL;
   if (amount < FEE_TOTAL) return false;
   
-  const toFee = transactionData.transaction.message.accountKeys[2].pubkey.toString();
-  console.log(toFee);
-  if (toFee != FEE_WALLET) return false;
+  const wallOne = transactionData.transaction.message.accountKeys[1].pubkey.toString();
+  const wallTwo = transactionData.transaction.message.accountKeys[2].pubkey.toString();
 
-  const toPool = transactionData.transaction.message.accountKeys[1].pubkey.toString();
-  console.log(toPool);
-  if (toPool != POOL_PDA) return false;
+  if (wallOne != FEE_WALLET && wallOne != POOL_PDA) return false;
+
+  if (wallTwo != POOL_PDA && wallTwo != FEE_WALLET) return false;
 
   const text2 = 'INSERT INTO transactions (sig) VALUES($1)';
   const values2 = [tSig];
