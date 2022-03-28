@@ -8,7 +8,7 @@ const fs = require('fs');
 const idl = require('./etc/hangman_program.json');
 const { pool } = require('../config');
 
-const FEE_TOTAL = 0.0011; //remove two 0s
+const FEE_TOTAL = 0.06;
 
 const FEE_WALLET = "8WnqfBUM4L13fBUudvjstHBEmUcxTPPX7DGkg3iyMmc8";
 const POOL_PDA = "6N4dfkqdTFsdJuu6gvvKCUhUX4swWqeTRvt4zonJGgW4";
