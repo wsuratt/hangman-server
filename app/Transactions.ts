@@ -88,24 +88,34 @@ export const endGame = async (owner: anchor.web3.PublicKey, hasWon: boolean) => 
   const program = getWagerProgram();
   if (hasWon)
   {
-    await program.rpc.endGame(true, {
+    try {
+      await program.rpc.endGame(true, {
+          accounts: {
+              owner: owner,
+              server: serverWallet.publicKey,
+              pool: POOL_PDA,
+              systemProgram: web3.SystemProgram.programId,
+          }
+      });
+    }
+    catch {
+      console.log("failed end game");
+    }
+  }
+  else
+  {
+    try {
+      await program.rpc.endGame(false, {
         accounts: {
             owner: owner,
             server: serverWallet.publicKey,
             pool: POOL_PDA,
             systemProgram: web3.SystemProgram.programId,
         }
-    });
-  }
-  else
-  {
-    await program.rpc.endGame(false, {
-      accounts: {
-          owner: owner,
-          server: serverWallet.publicKey,
-          pool: POOL_PDA,
-          systemProgram: web3.SystemProgram.programId,
-      }
-    });
+      });
+    }
+    catch {
+      console.log("failed end game");
+    }
   }
 }
