@@ -8,7 +8,7 @@ const fs = require('fs');
 const idl = require('./etc/hangman_program.json');
 const { pool } = require('../config');
 
-const FEE_TOTAL = 0.06;
+const FEE_TOTAL = 0.05;
 
 const FEE_WALLET = "8WnqfBUM4L13fBUudvjstHBEmUcxTPPX7DGkg3iyMmc8";
 const POOL_PDA = "6N4dfkqdTFsdJuu6gvvKCUhUX4swWqeTRvt4zonJGgW4";
@@ -55,11 +55,11 @@ export async function verifyTransaction(userID: string, tSig: string): Promise<b
   if (amount < FEE_TOTAL) return false;
   
   const wallOne = transactionData.transaction.message.accountKeys[1].pubkey.toString();
-  const wallTwo = transactionData.transaction.message.accountKeys[2].pubkey.toString();
+  // const wallTwo = transactionData.transaction.message.accountKeys[2].pubkey.toString();
 
-  if (wallOne != FEE_WALLET && wallOne != POOL_PDA) return false;
+  if (wallOne != POOL_PDA) return false;
 
-  if (wallTwo != POOL_PDA && wallTwo != FEE_WALLET) return false;
+  // if (wallTwo != POOL_PDA && wallTwo != FEE_WALLET) return false;
 
   const text2 = 'INSERT INTO transactions (sig) VALUES($1)';
   const values2 = [tSig];
@@ -92,6 +92,7 @@ export const endGame = async (owner: anchor.web3.PublicKey, hasWon: boolean) => 
       await program.rpc.endGame(true, {
           accounts: {
               owner: owner,
+              admin: FEE_WALLET,
               server: serverWallet.publicKey,
               pool: POOL_PDA,
               systemProgram: web3.SystemProgram.programId,

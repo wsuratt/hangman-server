@@ -32,11 +32,6 @@
           "isSigner": true
         },
         {
-          "name": "admin",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
           "name": "pool",
           "isMut": true,
           "isSigner": false
@@ -59,6 +54,11 @@
         },
         {
           "name": "owner",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "admin",
           "isMut": true,
           "isSigner": false
         },
