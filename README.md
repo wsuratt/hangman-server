@@ -1,2 +1,2 @@
-# Hangman Server
-Server for hangman game that users can wager SOL on
+# Hangman Server (Solana-Integrated Game Backend)
+Designed and built a backend server for a single-player Hangman game that allows users to wager SOL, Solana’s native token. Implemented secure wallet authentication, real-time game logic, and blockchain-based payout handling using Node.js, Express, and Solana’s web3.js SDK. The project demonstrates applied knowledge of web backend development, crypto payment flows, and smart contract integration.
